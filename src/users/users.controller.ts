@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { UsersServices } from './users.service';
 import { CreateUserDto } from './dto/CreteUsers.dto';
+import mongoose from 'mongoose';
 
 @Controller('users')
 export class UserController {
@@ -28,6 +29,8 @@ export class UserController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string) {
+    const isValid = mongoose.Types.ObjectId.isValid(id);
+    if (!isValid) throw new HttpException('user not found', 404);
     const findUser = await this.usersServices.getUserById(id);
     return findUser;
   }
