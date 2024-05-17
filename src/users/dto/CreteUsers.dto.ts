@@ -1,8 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, MinLength} from "@nestjs/class-validator";
 
 export class CreateUserDto {
-    @IsNotEmpty()
     @IsString()
-    username :string
+    @IsNotEmpty()
+    name :string
+
+    @IsString()
+    @IsEmail({},{message: 'Please ener email correctly'})
+    email:string
+    
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(8)
+    password: string
 }

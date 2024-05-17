@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   Param,
@@ -35,4 +36,8 @@ export class TodoController {
     const findUser = await this.todosServices.getTodosByUserId(userId);
     return findUser; 
 }
+// @Delete(':id')
+// remove(@Param('id') id: string) {
+//   return this.todosServices.remove(+id);
+// }
 }

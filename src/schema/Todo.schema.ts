@@ -10,7 +10,7 @@ export class Todo {
   task: string 
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User
+  user: User;
   
 }
 
