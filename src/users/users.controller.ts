@@ -10,7 +10,7 @@ import {
 import { UsersServices } from './users.service';
 import { CreateUserDto } from './dto/CreteUsers.dto';
 import { LoginDto } from './dto/Login.dto';
-import { JwtExceptionFilter } from './jwt/jst-exception.filter';
+import { JwtExceptionFilter } from '@scandinavia/nestjs-libs';
 
 @Controller('users')
 @UseFilters(JwtExceptionFilter)
