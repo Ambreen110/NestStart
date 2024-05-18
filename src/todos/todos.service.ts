@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { HttpException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateTodosDto } from './dto/CreateTodos.dto';
 import { User } from 'src/schema/User.schema';
 import { Todo } from 'src/schema/Todo.schema';
@@ -29,10 +29,18 @@ export class TodosService {
     return this.todoModel.find();
   }
   async getTodosByUserId(userId: string): Promise<Todo[]> {
-    const user = await this.userModel.findById(userId).populate('todos');
-    if (!user) {
-      throw new HttpException('User Not Found', 404);
+    const isValidId = mongoose.isValidObjectId(userId);
+    if (!isValidId) {
+      throw new BadRequestException('Please enter a correct ID.');
     }
-    return user.todos;
+    const todos = await this.todoModel.find({ user: userId });
+    if (!todos.length) {
+      throw new NotFoundException('Todos Not Found');
+    }
+    return todos;
   }
+  
 }
+
+  
+
