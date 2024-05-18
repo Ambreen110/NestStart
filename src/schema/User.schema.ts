@@ -7,14 +7,14 @@ import { Todo } from './Todo.schema'
 export class User {
 
   @Prop()
-  name:string
+  username:string
 
   @Prop({unique : [true, '  User with this email already exist']})
   email: string
 
   @Prop()
   password: string
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: () => Todo }]})
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: () => User }]})
   todos:Todo[]
   
 }

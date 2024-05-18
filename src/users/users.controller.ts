@@ -1,29 +1,19 @@
-/* eslint-disable prettier/prettier */
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  UseFilters,
- 
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UsersServices } from './users.service';
+import { LoginDto } from './dto/login.dto';
 import { CreateUserDto } from './dto/CreteUsers.dto';
-import { LoginDto } from './dto/Login.dto';
-import { JwtExceptionFilter } from '@scandinavia/nestjs-libs';
 
-@Controller('users')
-@UseFilters(JwtExceptionFilter)
+@Controller()
 export class UserController {
-  constructor(private usersServices: UsersServices) {}
+  constructor(private authService: UsersServices) {}
 
   @Post('/signup')
-  signUp(@Body() signupDto : CreateUserDto): Promise<{token: string}>{
-      return this.usersServices.signup(signupDto)
+  signUp(@Body() signUpDto: CreateUserDto): Promise<{ token: string }> {
+    return this.authService.signUp(signUpDto);
   }
 
   @Get('/login')
-  login(@Body() loginDto: LoginDto): Promise<{token: string}>{
-      return this.usersServices.login(loginDto)
+  login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
+    return this.authService.login(loginDto);
   }
 }

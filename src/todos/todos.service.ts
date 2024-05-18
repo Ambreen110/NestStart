@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -8,8 +9,8 @@ import { Todo } from 'src/schema/Todo.schema';
 @Injectable()
 export class TodosService {
   constructor(
-    @InjectModel(Todo.name) private todoModel: Model<Todo>,
-    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Todo.name) private readonly todoModel: Model<Todo>,
+    @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
 
   async createTodo({ userId, ...createTodosDto }: CreateTodosDto) {
